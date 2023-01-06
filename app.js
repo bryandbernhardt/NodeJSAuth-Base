@@ -143,9 +143,11 @@ app.post("/auth/login", async (req, res) => {
     const secret = process.env.SECRET;
     const token = jwt.sign(
       {
-        id: user._id,
+        username: user.name,
+        userID: user._id,
       },
-      secret
+      secret,
+      { expiresIn: "30m" }
     );
 
     res.status(200).json({ msg: "Login realizado com sucesso", token: token });
